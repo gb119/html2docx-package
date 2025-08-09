@@ -1,0 +1,43 @@
+{% set name = "html2docx" %}
+{% set version = "1.6.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/html2docx-{{ version }}.tar.gz
+  sha256: 13ef5653d7a3ffe625251705f15ae203938ce2f98be93e62f6fdf80630c33d2d
+
+build:
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
+
+requirements:
+  host:
+    - python >=3.7
+    - setuptools >=42
+    - pip
+  run:
+    - python >=3.7
+    - python-docx
+    - tinycss2
+
+test:
+  imports:
+    - html2docx
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://github.com/erezlife/html2docx
+  summary: Convert valid HTML input to docx.
+  license: MIT
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - gb119
